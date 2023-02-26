@@ -1,4 +1,4 @@
-import { Transaction } from "../models/transaction";
+import { Transaction } from "../../../transaction/domain/models/transaction";
 
 export interface TransactionRepository {
   getSingleUserTx(id?: string): Promise<Transaction>;

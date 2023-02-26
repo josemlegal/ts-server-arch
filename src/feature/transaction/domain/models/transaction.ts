@@ -7,6 +7,10 @@ export interface Transaction {
   monto: number;
 }
 
-export interface CreateTx extends Omit<User, "id"> {}
+export interface CreateTx extends Omit<Transaction, "id"> {}
 
-export interface UpdateTx extends Partial<User> {}
+export interface UpdateTx extends Partial<Transaction> {}
+
+export interface DeleteTx {
+  id: string;
+}
