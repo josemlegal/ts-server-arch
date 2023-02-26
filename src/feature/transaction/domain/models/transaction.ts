@@ -1,4 +1,4 @@
-import { User } from "./user";
+import { User } from "../../../user/domain/models/user";
 
 export interface Transaction {
   id: string;
