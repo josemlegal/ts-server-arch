@@ -2,7 +2,7 @@ import {
   CreateTx,
   Transaction,
   UpdateTx,
-} from "../../../transaction/domain/models/transaction";
+} from "../../domain/models/transaction";
 
 export interface TransactionRepository {
   getUserTx(id?: string): Promise<Transaction>;
