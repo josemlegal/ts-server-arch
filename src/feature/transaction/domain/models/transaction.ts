@@ -4,7 +4,7 @@ export interface Transaction {
   id: string;
   title: string;
   description: string;
-  monto: number;
+  amount: number;
 }
 
 export interface CreateTx extends Omit<Transaction, "id"> {}
