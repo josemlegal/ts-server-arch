@@ -4,7 +4,7 @@ import {
   UpdateTx,
 } from "../../domain/models/transaction";
 
-export interface TransactionRepository {
+export interface TransactionDataSource {
   getUserTx(id?: string): Promise<Transaction>;
   getAllUserTx(): Promise<Transaction[]>;
   createTx(data: CreateTx): Promise<Transaction>;
