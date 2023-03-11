@@ -6,11 +6,14 @@ export class TransactionRepositoryImplementation
   implements TransactionRepository
 {
   private transactionDataSource: TransactionDataSource;
+  static TransactionRepositoryImplementation: TransactionRepositoryImplementation;
   private constructor(dataSource: TransactionDataSource) {
     this.transactionDataSource = dataSource;
   }
-  getUserTx(id?: string | undefined): Promise<Transaction> {
-    throw new Error("Method not implemented.");
+  async getSingleTx(txId: string): Promise<Transaction> {
+    return await this.callDataSource(() =>
+      this.transactionDataSource.getSingleTx(txId)
+    );
   }
   async getAllTx(): Promise<Transaction[]> {
     return await this.callDataSource(() =>
@@ -22,8 +25,15 @@ export class TransactionRepositoryImplementation
       this.transactionDataSource.createTx(data)
     );
   }
-  updateTx(txId: string, data: UpdateTx): Promise<Transaction> {
-    throw new Error("Method not implemented.");
+  async updateTx(txId: string, data: UpdateTx): Promise<Transaction> {
+    return await this.callDataSource(async () => {
+      const selectedTx = await this.transactionDataSource.getSingleTx(txId);
+      const updatedTx = {
+        ...selectedTx,
+        ...data,
+      };
+      this.transactionDataSource.updateTx(updatedTx);
+    });
   }
   deleteTx(txId: string): Promise<Transaction> {
     throw new Error("Method not implemented.");
