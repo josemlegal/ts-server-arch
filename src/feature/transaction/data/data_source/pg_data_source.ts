@@ -6,7 +6,10 @@ import {
   UpdateTx,
 } from "../../domain/models/transaction";
 import { TransactionDataSource } from "../interfaces/transaction_data_source";
-import { INSERT_TRANSACTION_QUERY } from "../query_scripts/queries";
+import {
+  INSERT_TRANSACTION_QUERY,
+  SELECT_TRANSACTIONS_QUERY,
+} from "../query_scripts/queries";
 import { transactionFromPG } from "../utils/transaction_serializer";
 
 export class PGTransactionsDataSource implements TransactionDataSource {
@@ -26,8 +29,10 @@ export class PGTransactionsDataSource implements TransactionDataSource {
   async getUserTx(id?: string | undefined): Promise<Transaction> {
     throw new Error("Method not implemented.");
   }
-  getAllUserTx(): Promise<Transaction[]> {
-    throw new Error("Method not implemented.");
+  async getAllTx(): Promise<Transaction[]> {
+    return await this.callDatabase(SELECT_TRANSACTIONS_QUERY, [], (result) =>
+      result.rows.map(transactionFromPG)
+    );
   }
   async createTx(data: CreateTx): Promise<Transaction> {
     return await this.callDatabase(
