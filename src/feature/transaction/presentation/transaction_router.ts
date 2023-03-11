@@ -9,9 +9,20 @@ export default function transactionsRouter(
   router.post("/", async (req, res) => {
     try {
       const newTx = await transactionRepository.createTx(req.body);
-      res.status(201).json(newTx);
+      res.status(201).send(newTx);
     } catch (err) {
       res.status(500).json({ message: "Could not create a transaction" });
     }
   });
+
+  router.get("/", async (req, res) => {
+    try {
+      const allTx = await transactionRepository.getAllTx();
+      res.status(200).send(allTx);
+    } catch (err) {
+      res.status(500).json({ message: "Could not get transactions" });
+    }
+  });
+
+  return router;
 }
