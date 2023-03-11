@@ -9,6 +9,8 @@ import { TransactionDataSource } from "../interfaces/transaction_data_source";
 import {
   INSERT_TRANSACTION_QUERY,
   SELECT_TRANSACTIONS_QUERY,
+  SELECT_TRANSACTION_QUERY,
+  UPDATE_TRANSACTION_QUERY,
 } from "../query_scripts/queries";
 import { transactionFromPG } from "../utils/transaction_serializer";
 
@@ -26,8 +28,10 @@ export class PGTransactionsDataSource implements TransactionDataSource {
     return PGTransactionsDataSource.instance;
   }
 
-  async getUserTx(id?: string | undefined): Promise<Transaction> {
-    throw new Error("Method not implemented.");
+  async getSingleTx(txId: string | undefined): Promise<Transaction> {
+    return await this.callDatabase(SELECT_TRANSACTION_QUERY, [txId], (result) =>
+      transactionFromPG(result.rows[0])
+    );
   }
   async getAllTx(): Promise<Transaction[]> {
     return await this.callDatabase(SELECT_TRANSACTIONS_QUERY, [], (result) =>
@@ -41,10 +45,14 @@ export class PGTransactionsDataSource implements TransactionDataSource {
       (result) => transactionFromPG(result.rows[0])
     );
   }
-  updateTx(txId: string, data: UpdateTx): Promise<Transaction> {
-    throw new Error("Method not implemented.");
+  async updateTx(data: UpdateTx): Promise<Transaction> {
+    return await this.callDatabase(
+      UPDATE_TRANSACTION_QUERY,
+      [data.id, data.title, data.description, data.amount],
+      (result) => transactionFromPG(result.rows[0])
+    );
   }
-  deleteTx(txId: string): Promise<Transaction> {
+  deleteTx(id: string): Promise<Transaction> {
     throw new Error("Method not implemented.");
   }
   static instance: PGTransactionsDataSource | null = null;
