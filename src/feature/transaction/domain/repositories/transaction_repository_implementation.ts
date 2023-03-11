@@ -35,8 +35,10 @@ export class TransactionRepositoryImplementation
       this.transactionDataSource.updateTx(updatedTx);
     });
   }
-  deleteTx(txId: string): Promise<Transaction> {
-    throw new Error("Method not implemented.");
+  async deleteTx(txId: string): Promise<Transaction> {
+    return await this.callDataSource(() => {
+      this.transactionDataSource.deleteTx(txId);
+    });
   }
 
   static instance: TransactionRepository | null = null;

@@ -1,5 +1,6 @@
 import { TransactionRepository } from "../domain/repositories/transaction_repository";
 import express from "express";
+import { json } from "stream/consumers";
 
 export default function transactionsRouter(
   transactionRepository: TransactionRepository
@@ -39,8 +40,18 @@ export default function transactionsRouter(
       const { id } = req.params;
       const tx = await transactionRepository.updateTx(id, req.body);
       res.status(200).send(tx);
-    } catch (error) {
+    } catch (err) {
       res.status(500).json({ message: "Could not update the transaction" });
+    }
+  });
+
+  router.delete("/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const deletedTx = await transactionRepository.deleteTx(id);
+      res.status(200).send(deletedTx);
+    } catch (err) {
+      res.status(500).json({ message: "Could not delete the transaction" });
     }
   });
 
