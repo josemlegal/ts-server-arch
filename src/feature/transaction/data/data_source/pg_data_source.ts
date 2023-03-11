@@ -7,6 +7,7 @@ import {
 } from "../../domain/models/transaction";
 import { TransactionDataSource } from "../interfaces/transaction_data_source";
 import {
+  DELETE_TRANSACTION_QUERY,
   INSERT_TRANSACTION_QUERY,
   SELECT_TRANSACTIONS_QUERY,
   SELECT_TRANSACTION_QUERY,
@@ -52,8 +53,10 @@ export class PGTransactionsDataSource implements TransactionDataSource {
       (result) => transactionFromPG(result.rows[0])
     );
   }
-  deleteTx(id: string): Promise<Transaction> {
-    throw new Error("Method not implemented.");
+  async deleteTx(id: string): Promise<Transaction> {
+    return await this.callDatabase(DELETE_TRANSACTION_QUERY, [id], (result) =>
+      transactionFromPG(result.rows[0])
+    );
   }
   static instance: PGTransactionsDataSource | null = null;
 

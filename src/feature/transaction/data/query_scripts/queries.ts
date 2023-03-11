@@ -13,3 +13,8 @@ UPDATE public.transactions
 SET title=$2, description=$3, amount=$4
 WHERE id=$1 RETURNING *;
 `;
+
+export const DELETE_TRANSACTION_QUERY = `
+DELETE from public.transactions
+WHERE id=$1 RETURNING *;
+`;
