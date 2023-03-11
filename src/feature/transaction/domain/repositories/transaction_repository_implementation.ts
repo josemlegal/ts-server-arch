@@ -12,8 +12,10 @@ export class TransactionRepositoryImplementation
   getUserTx(id?: string | undefined): Promise<Transaction> {
     throw new Error("Method not implemented.");
   }
-  getAllUserTx(): Promise<Transaction[]> {
-    throw new Error("Method not implemented.");
+  async getAllTx(): Promise<Transaction[]> {
+    return await this.callDataSource(() =>
+      this.transactionDataSource.getAllTx()
+    );
   }
   async createTx(data: CreateTx): Promise<Transaction> {
     return await this.callDataSource(() =>
