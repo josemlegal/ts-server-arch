@@ -10,7 +10,8 @@ export class TransactionRepositoryImplementation
   private constructor(dataSource: TransactionDataSource) {
     this.transactionDataSource = dataSource;
   }
-  async getSingleTx(txId: string): Promise<Transaction> {
+
+  async getOne(txId: string): Promise<Transaction> {
     return await this.callDataSource(() =>
       this.transactionDataSource.getSingleTx(txId)
     );

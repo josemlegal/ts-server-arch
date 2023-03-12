@@ -29,7 +29,7 @@ export class PGTransactionsDataSource implements TransactionDataSource {
     return PGTransactionsDataSource.instance;
   }
 
-  async getSingleTx(txId: string | undefined): Promise<Transaction> {
+  async getSingleTx(txId: string): Promise<Transaction> {
     return await this.callDatabase(SELECT_TRANSACTION_QUERY, [txId], (result) =>
       transactionFromPG(result.rows[0])
     );
