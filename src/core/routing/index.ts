@@ -2,6 +2,7 @@ import express, { Application } from "express";
 import categoriesRouter from "../../feature/category/presentation/category_router";
 import paymentMethodsRouter from "../../feature/payment_method/presentation/payment_method_router";
 import { transactionsRouter } from "../../feature/transaction/presentation";
+import transactionTypesRouter from "../../feature/transaction_type/presentation/transaction_type_router";
 import usersRouter from "../../feature/user/presentation/user_router";
 
 export const configureRoutes = (app: Application) => {
@@ -10,5 +11,6 @@ export const configureRoutes = (app: Application) => {
   router.use("/user", usersRouter);
   router.use("/category", categoriesRouter);
   router.use("/payment-method", paymentMethodsRouter);
+  router.use("/transaction-type", transactionTypesRouter);
   app.use("/api", router);
 };
