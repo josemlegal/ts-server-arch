@@ -59,4 +59,6 @@ export default function transactionTypesRouter(
         .json({ message: "Could not delete the transaction type" });
     }
   });
+
+  return router;
 }
