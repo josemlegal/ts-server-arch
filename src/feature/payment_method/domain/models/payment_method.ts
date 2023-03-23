@@ -1,6 +1,7 @@
 export interface PaymentMethod {
   id: string;
   title: string;
+  userId: string;
 }
 
 export interface CreatePaymentMethod extends Omit<PaymentMethod, "id"> {}
