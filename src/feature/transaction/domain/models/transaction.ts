@@ -5,6 +5,9 @@ export interface Transaction {
   title: string;
   description: string;
   amount: number;
+  categoryId: string;
+  userId: string;
+  paymentMethodId: string;
 }
 
 export interface CreateTx extends Omit<Transaction, "id"> {}
