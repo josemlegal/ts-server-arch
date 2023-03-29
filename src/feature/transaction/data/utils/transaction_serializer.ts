@@ -6,5 +6,8 @@ export const transactionFromPG = (item: any): Transaction => {
     title: item.title,
     description: item.description,
     amount: item.amount,
+    userId: item.user_id,
+    categoryId: item.category_id,
+    paymentMethodId: item.payment_method_id,
   };
 };
