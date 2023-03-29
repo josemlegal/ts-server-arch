@@ -42,14 +42,29 @@ export class PGTransactionsDataSource implements TransactionDataSource {
   async createTx(data: CreateTx): Promise<Transaction> {
     return await this.callDatabase(
       INSERT_TRANSACTION_QUERY,
-      [data.title, data.description, data.amount],
+      [
+        data.title,
+        data.description,
+        data.amount,
+        data.userId,
+        data.categoryId,
+        data.paymentMethodId,
+      ],
       (result) => transactionFromPG(result.rows[0])
     );
   }
   async updateTx(data: UpdateTx): Promise<Transaction> {
     return await this.callDatabase(
       UPDATE_TRANSACTION_QUERY,
-      [data.id, data.title, data.description, data.amount],
+      [
+        data.id,
+        data.title,
+        data.description,
+        data.amount,
+        data.userId,
+        data.categoryId,
+        data.paymentMethodId,
+      ],
       (result) => transactionFromPG(result.rows[0])
     );
   }

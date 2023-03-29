@@ -9,5 +9,5 @@ export interface TransactionDataSource {
   getAllTx(): Promise<Transaction[]>;
   createTx(data: CreateTx): Promise<Transaction>;
   updateTx(data: UpdateTx): Promise<Transaction>;
-  deleteTx(id: string): Promise<Transaction>;
+  deleteTx(txId: string): Promise<Transaction>;
 }
