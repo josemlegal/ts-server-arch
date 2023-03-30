@@ -39,14 +39,14 @@ export class PGCategoryDataSource implements CategoryDataSource {
   async createCategory(data: CreateCategory): Promise<Category> {
     return await this.callDatabase(
       INSERT_CATEGORY_QUERY,
-      [data.title],
+      [data.title, data.transactionTypeId],
       (result) => result.rows[0]
     );
   }
   async updateCategory(data: UpdateCategory): Promise<Category> {
     return await this.callDatabase(
       UPDATE_CATEGORY_QUERY,
-      [data.id, data.title],
+      [data.id, data.title, data.transactionTypeId],
       (result) => result.rows[0]
     );
   }
