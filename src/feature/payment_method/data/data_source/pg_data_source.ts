@@ -42,14 +42,14 @@ export class PGPaymentMethodDataSource implements PaymentMethodDataSource {
   async createPaymentMethod(data: CreatePaymentMethod): Promise<PaymentMethod> {
     return await this.callDatabase(
       INSERT_PAYMENT_METHOD_QUERY,
-      [data.title],
+      [data.title, data.userId],
       (result) => paymentMethodFromPG(result.rows[0])
     );
   }
   async updatePaymentMethod(data: UpdatePaymentMethod): Promise<PaymentMethod> {
     return await this.callDatabase(
       UPDATE_PAYMENT_METHOD_QUERY,
-      [data.id, data.title],
+      [data.id, data.title, data.userId],
       (result) => paymentMethodFromPG(result.rows[0])
     );
   }
