@@ -40,7 +40,7 @@ export class PGTransactionTypeDataSource implements TransactionTypeDataSource {
   ): Promise<TransactionType> {
     return await this.callDatabase(
       INSERT_TRANSACTION_TYPE_QUERY,
-      [data.title],
+      [data.type],
       (result) => transactionTypeFromPG(result.rows[0])
     );
   }
@@ -49,7 +49,7 @@ export class PGTransactionTypeDataSource implements TransactionTypeDataSource {
   ): Promise<TransactionType> {
     return await this.callDatabase(
       UPDATE_TRANSACTION_TYPE_QUERY,
-      [data.id, data.title],
+      [data.id, data.type],
       (result) => transactionTypeFromPG(result.rows[0])
     );
   }
