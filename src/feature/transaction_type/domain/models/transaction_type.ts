@@ -1,6 +1,6 @@
 export interface TransactionType {
   id: string;
-  title: string;
+  type: string;
 }
 
 export interface CreateTransactionType extends Omit<TransactionType, "id"> {}
