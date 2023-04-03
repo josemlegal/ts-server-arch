@@ -1,3 +1,5 @@
+import { CustomError } from "../../../error/custom_error";
+import { GenericError } from "../../../error/generic_error";
 import { TransactionDataSource } from "../../data/interfaces/transaction_data_source";
 import { Transaction, CreateTx, UpdateTx } from "../models/transaction";
 import { TransactionRepository } from "./transaction_repository";
@@ -57,8 +59,10 @@ export class TransactionRepositoryImplementation
       return await callback();
     } catch (error) {
       console.log(error);
-      throw error;
+      if (error instanceof CustomError) {
+        throw error;
+      }
     }
-    // throw new GenericError("Users Repositories error.");
+    throw new GenericError("Transactions Repositories error.");
   }
 }
