@@ -1,3 +1,5 @@
+import { CustomError } from "../../../error/custom_error";
+import { GenericError } from "../../../error/generic_error";
 import { CategoryDataSource } from "../../data/interfaces/category_data_source";
 import { Category, CreateCategory, UpdateCategory } from "../models/category";
 import { CategoryRepository } from "./category_repository";
@@ -54,8 +56,10 @@ export class CategoryRepositoryImplementation implements CategoryRepository {
       return await callback();
     } catch (error) {
       console.log(error);
-      throw error;
+      if (error instanceof CustomError) {
+        throw error;
+      }
     }
-    // throw new GenericError("Users Repositories error.");
+    throw new GenericError("Categories Repositories error.");
   }
 }
