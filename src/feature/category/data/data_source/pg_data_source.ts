@@ -1,4 +1,6 @@
-import { Pool, PoolClient, QueryResult } from "pg";
+import { DatabaseError, Pool, PoolClient, QueryResult } from "pg";
+import { CustomError } from "../../../error/custom_error";
+import { DataBaseError } from "../../../error/database_error";
 import {
   Category,
   CreateCategory,
@@ -67,12 +69,14 @@ export class PGCategoryDataSource implements CategoryDataSource {
   ): Promise<T> {
     let client: PoolClient;
     client = await this.db.connect();
-
     try {
       const response = await client.query(query, values);
       return callback(response);
-    } catch (error) {
-      throw error;
+    } catch (err) {
+      if (err instanceof CustomError) {
+        throw err;
+      }
+      throw new DataBaseError(err as Error);
     } finally {
       if (client) {
         client.release();
