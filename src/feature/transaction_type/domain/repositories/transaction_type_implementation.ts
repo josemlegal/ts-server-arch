@@ -1,3 +1,5 @@
+import { CustomError } from "../../../error/custom_error";
+import { GenericError } from "../../../error/generic_error";
 import { TransactionTypeDataSource } from "../../data/interfaces/transaction_type_data_source";
 import {
   TransactionType,
@@ -64,7 +66,10 @@ export class TransactionTypeRepositoryImplementation
       return await callback();
     } catch (error) {
       console.log(error);
-      throw error;
+      if (error instanceof CustomError) {
+        throw error;
+      }
     }
+    throw new GenericError("Transaction Type Repositories error.");
   }
 }
