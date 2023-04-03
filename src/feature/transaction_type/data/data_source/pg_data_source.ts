@@ -1,4 +1,6 @@
 import { Pool, PoolClient, QueryResult } from "pg";
+import { CustomError } from "../../../error/custom_error";
+import { DataBaseError } from "../../../error/database_error";
 import {
   TransactionType,
   CreateTransactionType,
@@ -79,12 +81,14 @@ export class PGTransactionTypeDataSource implements TransactionTypeDataSource {
   ): Promise<T> {
     let client: PoolClient;
     client = await this.db.connect();
-
     try {
-      const reponse = await client.query(query, values);
-      return callback(reponse);
-    } catch (error) {
-      throw error;
+      const response = await client.query(query, values);
+      return callback(response);
+    } catch (err) {
+      if (err instanceof CustomError) {
+        throw err;
+      }
+      throw new DataBaseError(err as Error);
     } finally {
       if (client) {
         client.release();
