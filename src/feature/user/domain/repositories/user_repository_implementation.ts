@@ -1,3 +1,5 @@
+import { CustomError } from "../../../error/custom_error";
+import { GenericError } from "../../../error/generic_error";
 import { UserDataSource } from "../../data/interfaces/user_data_source";
 import { User, UpdateUser, CreateUser } from "../models/user";
 import { UserRepository } from "./user_repository";
@@ -50,8 +52,10 @@ export class UserRepositoryImplementation implements UserRepository {
       return await callback();
     } catch (error) {
       console.log(error);
-      throw error;
+      if (error instanceof CustomError) {
+        throw error;
+      }
     }
-    // throw new GenericError("Users Repositories error.");
+    throw new GenericError("Users Repositories error.");
   }
 }
