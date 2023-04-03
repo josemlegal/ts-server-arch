@@ -1,3 +1,5 @@
+import { CustomError } from "../../../error/custom_error";
+import { GenericError } from "../../../error/generic_error";
 import { PaymentMethodDataSource } from "../../data/interfaces/payment_method_data_source";
 import {
   PaymentMethod,
@@ -68,8 +70,10 @@ export class PaymentMethodRepositoryImplementation
       return await callback();
     } catch (error) {
       console.log(error);
-      throw error;
+      if (error instanceof CustomError) {
+        throw error;
+      }
     }
-    // throw new GenericError("Users Repositories error.");
+    throw new GenericError("Payment Method's Repositories error.");
   }
 }
