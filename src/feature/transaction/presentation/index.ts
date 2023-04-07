@@ -1,4 +1,4 @@
-import { pool } from "../../../core/services/database_service";
+import { pool } from "../../../core/services/postgres/database_service_pool";
 import { PGTransactionsDataSource } from "../data/data_source/pg_data_source";
 import { TransactionRepositoryImplementation } from "../domain/repositories/transaction_repository_implementation";
 import TransactionRouter from "./transaction_router";
