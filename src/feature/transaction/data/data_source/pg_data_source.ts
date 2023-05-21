@@ -45,7 +45,6 @@ export class PGTransactionsDataSource implements TransactionDataSource {
     return await this.callDatabase(
       INSERT_TRANSACTION_QUERY,
       [
-        data.title,
         data.description,
         data.amount,
         data.userId,
@@ -60,7 +59,6 @@ export class PGTransactionsDataSource implements TransactionDataSource {
       UPDATE_TRANSACTION_QUERY,
       [
         data.id,
-        data.title,
         data.description,
         data.amount,
         data.userId,
