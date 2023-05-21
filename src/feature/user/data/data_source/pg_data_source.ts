@@ -37,14 +37,14 @@ export class PGUserDataSource implements UserDataSource {
   async create(data: CreateUser): Promise<User> {
     return await this.callDatabase(
       INSERT_USER_QUERY,
-      [data.name, data.email, data.password],
+      [data.firstName, data.email, data.lastName, data.password],
       (result) => userFromPG(result.rows[0])
     );
   }
   async update(data: UpdateUser): Promise<User> {
     return await this.callDatabase(
       UPDATE_USER_QUERY,
-      [data.id, data.name, data.email, data.password],
+      [data.id, data.firstName, data.lastName, data.email, data.password],
       (result) => userFromPG(result.rows[0])
     );
   }
